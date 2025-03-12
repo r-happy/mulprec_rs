@@ -1,7 +1,7 @@
 // const
-const BASE: i64 = 1000000000;
-const KETA: usize = 800;
-const SHIFT: usize = 20;
+pub const BASE: i64 = 1000000000;
+pub const KETA: usize = 135;
+pub const SHIFT: usize = 125;
 
 // struct
 pub struct NUMBER {
