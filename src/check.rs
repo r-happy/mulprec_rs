@@ -16,6 +16,8 @@ pub fn check() {
     decrement();
     multiple();
     one_divide();
+    shift_left();
+    shift_right();
 }
 
 pub fn set_int() {
@@ -221,5 +223,32 @@ pub fn one_divide() {
     mulprec::divide(&a, &b, &mut c);
     print!("c: ");
     c.display();
+    print!("\n");
+}
+
+pub fn shift_left() {
+    print!("\nshift_left\n");
+    let mut a = mulprec::NUMBER::new();
+    a.set_int(12345678);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    a.shift_left(1);
+    print!("a: ");
+    a.display();
+    print!("\n");
+}
+
+pub fn shift_right() {
+    print!("\nshift_right\n");
+    let mut a = mulprec::NUMBER::new();
+    a.set_int(12345678);
+    a.shift_left(2);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    a.shift_right(1);
+    print!("a: ");
+    a.display();
     print!("\n");
 }

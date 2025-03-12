@@ -105,6 +105,38 @@ impl NUMBER {
         }
         return r_v;
     }
+
+    /*
+        左にシフト
+    */
+    pub fn shift_left(&mut self, n: usize) {
+        if n >= KETA {
+            self.clear();
+            return;
+        }
+        for i in (0..KETA - n).rev() {
+            self.n[i + n] = self.n[i];
+        }
+        for i in 0..n {
+            self.n[i] = 0;
+        }
+    }
+
+    /*
+        右にシフト
+    */
+    pub fn shift_right(&mut self, n: usize) {
+        if n >= KETA {
+            self.clear();
+            return;
+        }
+        for i in 0..KETA - n {
+            self.n[i] = self.n[i + n];
+        }
+        for i in (KETA - n..KETA).rev() {
+            self.n[i] = 0;
+        }
+    }
 }
 
 /*
@@ -245,6 +277,11 @@ pub fn simple_multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
         }
     }
 }
+
+/*
+    inverse(s1) = target
+*/
+pub fn inverse(s: &NUMBER, target: &mut NUMBER) {}
 
 /*
     s1 / s2 = target
