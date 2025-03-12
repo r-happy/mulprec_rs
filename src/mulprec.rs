@@ -89,6 +89,22 @@ impl NUMBER {
             i += 1;
         }
     }
+
+    /*
+        現在の桁を取得
+    */
+    pub fn get_keta(&self) -> usize {
+        let mut i = KETA;
+        let mut r_v: usize = 0;
+        while i > 0 {
+            i -= 1;
+            if self.n[i] != 0 {
+                r_v = i + 1;
+                break;
+            }
+        }
+        return r_v;
+    }
 }
 
 /*
@@ -192,4 +208,11 @@ pub fn decrement(s1: &NUMBER, target: &mut NUMBER) {
     let mut one: NUMBER = NUMBER::new();
     one.set_int(1);
     sub(s1, &one, target);
+}
+
+/*
+    s1 * s2 = target
+*/
+pub fn multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+    target.clear();
 }

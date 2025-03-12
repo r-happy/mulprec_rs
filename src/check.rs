@@ -6,6 +6,7 @@ pub fn check() {
     print!("<<<<<< check >>>>>>\n");
     is_zero();
     set_int();
+    get_keta();
     copy_number();
     num_comp();
     add();
@@ -22,6 +23,16 @@ pub fn set_int() {
     print!("a: ");
     a.display();
     print!("\n");
+}
+
+pub fn get_keta() {
+    print!("\nget_keta\n");
+    let mut a = mulprec::NUMBER::new();
+    a.n[10] = 123;
+    print!("a: ");
+    a.display();
+    print!("\n");
+    print!("a: {}\n", a.get_keta());
 }
 
 pub fn is_zero() {
