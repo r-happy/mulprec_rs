@@ -9,8 +9,9 @@ pub fn check() {
     copy_number();
     num_comp();
     add();
-    add_fibo();
+    // add_fibo();
     sub();
+    increment();
 }
 
 pub fn set_int() {
@@ -140,5 +141,19 @@ pub fn sub() {
     mulprec::sub(&a, &b, &mut c);
     print!("c: ");
     c.display();
+    print!("\n");
+}
+
+pub fn increment() {
+    print!("\nincrement\n");
+    let mut a = mulprec::NUMBER::new();
+    let mut b = mulprec::NUMBER::new();
+    a.set_int(12345678);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    mulprec::increment(&mut a, &mut b);
+    print!("b: ");
+    b.display();
     print!("\n");
 }

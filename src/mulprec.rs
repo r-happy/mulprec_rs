@@ -175,3 +175,9 @@ pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
         }
     }
 }
+
+pub fn increment(s1: &NUMBER, target: &mut NUMBER) {
+    let mut one: NUMBER = NUMBER::new();
+    one.set_int(1);
+    add(s1, &one, target);
+}
