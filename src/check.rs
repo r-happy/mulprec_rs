@@ -18,6 +18,7 @@ pub fn check() {
     one_divide();
     shift_left();
     shift_right();
+    inverse();
 }
 
 pub fn set_int() {
@@ -250,5 +251,19 @@ pub fn shift_right() {
     a.shift_right(1);
     print!("a: ");
     a.display();
+    print!("\n");
+}
+
+pub fn inverse() {
+    print!("\ninverse\n");
+    let mut a = mulprec::NUMBER::new();
+    let mut b = mulprec::NUMBER::new();
+    a.set_int(123456789);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    mulprec::inverse(&a, &mut b, 10);
+    print!("b: ");
+    b.display();
     print!("\n");
 }

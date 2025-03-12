@@ -1,7 +1,7 @@
 // const
 const BASE: i64 = 1000000000;
-const KETA: usize = 2500;
-const SHIFT: usize = 125;
+const KETA: usize = 800;
+const SHIFT: usize = 20;
 
 // struct
 pub struct NUMBER {
@@ -217,10 +217,10 @@ pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
             target.n[i] = s1i + BASE - s2i;
             h = 1;
         }
+    }
 
-        if h != 0 {
-            target.clear();
-        }
+    if h != 0 {
+        target.clear();
     }
 }
 
@@ -281,7 +281,41 @@ pub fn simple_multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
 /*
     inverse(s1) = target
 */
-pub fn inverse(s: &NUMBER, target: &mut NUMBER) {}
+pub fn inverse(s: &NUMBER, target: &mut NUMBER, n: usize) {
+    let mut x = NUMBER::new();
+    let mut y = NUMBER::new();
+    let mut h = NUMBER::new();
+    let mut one = NUMBER::new();
+    let mut t1 = NUMBER::new();
+    let mut t2 = NUMBER::new();
+    let keta: usize = s.get_keta();
+
+    one.set_int(1);
+    one.shift_left(n);
+
+    // x <- 2 * 10 ** n - keta
+    x.set_int(2);
+    x.shift_left(n - keta);
+
+    loop {
+        copy_number(&x, &mut y);
+        multiple(s, &y, &mut t1);
+        sub(&one, &t1, &mut h);
+
+        multiple(&h, &h, &mut t1);
+        t1.shift_right(n);
+        add(&t1, &h, &mut t2);
+        add(&t2, &one, &mut t1);
+        multiple(&y, &t1, &mut x);
+        x.shift_right(n);
+
+        if (n - h.get_keta()) * 3 >= n {
+            break;
+        }
+    }
+
+    copy_number(&x, target);
+}
 
 /*
     s1 / s2 = target
