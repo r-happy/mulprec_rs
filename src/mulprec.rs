@@ -1,12 +1,12 @@
 // const
-const BASE: isize = 1000000000;
+const BASE: i64 = 1000000000;
 const KETA: usize = 2500;
 const SHIFT: usize = 125;
 
 // struct
 pub struct NUMBER {
-    pub n: [isize; KETA],
-    pub sign: isize,
+    pub n: [i64; KETA],
+    pub sign: i64,
 }
 
 impl NUMBER {
@@ -64,11 +64,11 @@ impl NUMBER {
     /*
         xの値をセット
     */
-    pub fn set_int(&mut self, x: isize) {
+    pub fn set_int(&mut self, x: i64) {
         self.clear();
 
         let mut x = x;
-        let mut r: isize;
+        let mut r: i64;
         let mut i = 0;
 
         while x != 0 {
@@ -120,7 +120,7 @@ pub fn copy_number(source: &NUMBER, target: &mut NUMBER) {
    source1 < source2: -1
    source1 = source2: 0
 */
-pub fn num_comp(s1: &NUMBER, s2: &NUMBER) -> isize {
+pub fn num_comp(s1: &NUMBER, s2: &NUMBER) -> i64 {
     if s1.sign > s2.sign {
         return 1;
     }
@@ -129,7 +129,7 @@ pub fn num_comp(s1: &NUMBER, s2: &NUMBER) -> isize {
         return -1;
     }
 
-    let mut r_v: isize = 0;
+    let mut r_v: i64 = 0;
     for i in (0..KETA - 1).rev() {
         if s1.n[i] > s2.n[i] {
             r_v = 1;
@@ -148,8 +148,8 @@ pub fn num_comp(s1: &NUMBER, s2: &NUMBER) -> isize {
     s1 + s2 = target
 */
 pub fn add(s1: &NUMBER, st2: &NUMBER, target: &mut NUMBER) {
-    let mut d: isize;
-    let mut e: isize = 0;
+    let mut d: i64;
+    let mut e: i64 = 0;
 
     for i in 0..KETA - 1 {
         if s1.n[i] == 0 && st2.n[i] == 0 && e == 0 {
@@ -167,9 +167,9 @@ pub fn add(s1: &NUMBER, st2: &NUMBER, target: &mut NUMBER) {
     s1 - s2 = target
 */
 pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
-    let mut h: isize = 0;
-    let mut s1i: isize;
-    let mut s2i: isize;
+    let mut h: i64 = 0;
+    let mut s1i: i64;
+    let mut s2i: i64;
 
     for i in 0..KETA - 1 {
         s1i = s1.n[i];
@@ -245,3 +245,34 @@ pub fn simple_multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
         }
     }
 }
+
+/*
+    s1 / s2 = target
+*/
+pub fn divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+    if s2.get_keta() > 1 {
+        divide_w_inverse(s1, s2, target);
+    } else {
+        one_divide(s1, s2, target);
+    }
+}
+
+pub fn one_divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+    let mut t: i64;
+    let mut h: i64;
+    target.clear();
+
+    if s2.is_zero() {
+        panic!("divided by zero");
+    }
+
+    h = 0;
+
+    for i in (0..s1.get_keta()).rev() {
+        t = BASE * h + s1.n[i];
+        h = t % s2.n[0];
+        target.n[i] = (t - h) / s2.n[0];
+    }
+}
+
+pub fn divide_w_inverse(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {}
