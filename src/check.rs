@@ -12,6 +12,7 @@ pub fn check() {
     // add_fibo();
     sub();
     increment();
+    decrement();
 }
 
 pub fn set_int() {
@@ -153,6 +154,20 @@ pub fn increment() {
     a.display();
     print!("\n");
     mulprec::increment(&mut a, &mut b);
+    print!("b: ");
+    b.display();
+    print!("\n");
+}
+
+pub fn decrement() {
+    print!("\ndecrement\n");
+    let mut a = mulprec::NUMBER::new();
+    let mut b = mulprec::NUMBER::new();
+    a.set_int(12345678);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    mulprec::decrement(&mut a, &mut b);
     print!("b: ");
     b.display();
     print!("\n");

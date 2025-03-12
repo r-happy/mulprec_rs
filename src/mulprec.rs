@@ -176,8 +176,20 @@ pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     }
 }
 
+/*
+    s1 + 1 = target
+*/
 pub fn increment(s1: &NUMBER, target: &mut NUMBER) {
     let mut one: NUMBER = NUMBER::new();
     one.set_int(1);
     add(s1, &one, target);
+}
+
+/*
+    s1 - 1 = target
+*/
+pub fn decrement(s1: &NUMBER, target: &mut NUMBER) {
+    let mut one: NUMBER = NUMBER::new();
+    one.set_int(1);
+    sub(s1, &one, target);
 }
