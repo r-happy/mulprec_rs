@@ -1,9 +1,25 @@
-// const
+// const ---------------------
 pub const BASE: i64 = 1000000000;
+/* 1000
 pub const KETA: usize = 135;
 pub const SHIFT: usize = 125;
+*/
 
-// struct
+/* 10000
+pub const KETA: usize = 1160;
+pub const SHIFT: usize = 1150;
+ */
+
+// /* 100000 time: 35s
+pub const KETA: usize = 11600;
+pub const SHIFT: usize = 11590;
+// */
+/* 1000000 `ulimit -s unlimited`
+pub const KETA: usize = 115121;
+pub const SHIFT: usize = 115111;
+ */
+// const  ---------------------
+
 pub struct NUMBER {
     pub n: [i64; KETA],
     pub sign: i64,
