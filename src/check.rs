@@ -14,6 +14,7 @@ pub fn check() {
     sub();
     increment();
     decrement();
+    multiple();
 }
 
 pub fn set_int() {
@@ -181,5 +182,24 @@ pub fn decrement() {
     mulprec::decrement(&mut a, &mut b);
     print!("b: ");
     b.display();
+    print!("\n");
+}
+
+pub fn multiple() {
+    print!("\nmultiple\n");
+    let mut a = mulprec::NUMBER::new();
+    let mut b = mulprec::NUMBER::new();
+    let mut c = mulprec::NUMBER::new();
+    a.set_int(123456789123456789);
+    b.set_int(123456789123456789);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    print!("b: ");
+    b.display();
+    print!("\n");
+    mulprec::multiple(&a, &b, &mut c);
+    print!("c: ");
+    c.display();
     print!("\n");
 }

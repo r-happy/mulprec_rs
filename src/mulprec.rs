@@ -215,4 +215,29 @@ pub fn decrement(s1: &NUMBER, target: &mut NUMBER) {
 */
 pub fn multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     target.clear();
+    let s1_keta = s1.get_keta();
+    let s2_keta = s2.get_keta();
+
+    for i in 0..s2_keta {
+        if s2.n[i] == 0 {
+            continue;
+        }
+
+        for j in 0..s1_keta {
+            if j + i >= s1_keta + s2_keta {
+                break;
+            }
+
+            if s1.n[j] == 0 {
+                continue;
+            }
+
+            target.n[j + i] += s1.n[j] * s2.n[i];
+
+            if target.n[j + i] >= BASE {
+                target.n[j + i + 1] += target.n[j + i] / BASE;
+                target.n[j + i] %= BASE;
+            }
+        }
+    }
 }
