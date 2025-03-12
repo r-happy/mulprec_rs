@@ -214,6 +214,10 @@ pub fn decrement(s1: &NUMBER, target: &mut NUMBER) {
     s1 * s2 = target
 */
 pub fn multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+    simple_multiple(s1, s2, target);
+}
+
+pub fn simple_multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     target.clear();
     let s1_keta = s1.get_keta();
     let s2_keta = s2.get_keta();
