@@ -10,6 +10,7 @@ pub fn check() {
     num_comp();
     add();
     add_fibo();
+    sub();
 }
 
 pub fn set_int() {
@@ -121,4 +122,23 @@ pub fn add_fibo() {
 
     // 経過時間を表示
     println!("Elapsed time: {:?}", duration);
+}
+
+pub fn sub() {
+    print!("\nsub\n");
+    let mut a = mulprec::NUMBER::new();
+    let mut b = mulprec::NUMBER::new();
+    let mut c = mulprec::NUMBER::new();
+    a.set_int(12345678);
+    b.set_int(12345676);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    print!("b: ");
+    b.display();
+    print!("\n");
+    mulprec::sub(&a, &b, &mut c);
+    print!("c: ");
+    c.display();
+    print!("\n");
 }

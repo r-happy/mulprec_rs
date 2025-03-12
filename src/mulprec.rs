@@ -62,7 +62,7 @@ impl NUMBER {
     }
 
     /*
-        isizeの値をセット
+        xの値をセット
     */
     pub fn set_int(&mut self, x: isize) {
         self.clear();
@@ -92,7 +92,7 @@ impl NUMBER {
 }
 
 /*
-    targe = source
+    target = source
 */
 pub fn copy_number(source: &NUMBER, target: &mut NUMBER) {
     target.sign = source.sign;
@@ -150,4 +150,28 @@ pub fn add(s1: &NUMBER, st2: &NUMBER, target: &mut NUMBER) {
 /*
     s1 - s2 = target
 */
-pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {}
+pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+    let mut h: isize = 0;
+    let mut s1i: isize;
+    let mut s2i: isize;
+
+    for i in 0..KETA - 1 {
+        s1i = s1.n[i];
+        s2i = s2.n[i];
+        s1i -= h;
+
+        if s1i >= s2i {
+            target.n[i] = s1i - s2i;
+            h = 0;
+        }
+
+        if s1i < s2i {
+            target.n[i] = s1i + BASE - s2i;
+            h = 1;
+        }
+
+        if h != 0 {
+            target.clear();
+        }
+    }
+}
