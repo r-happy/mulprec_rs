@@ -321,6 +321,10 @@ pub fn inverse(s: &NUMBER, target: &mut NUMBER, n: usize) {
     s1 / s2 = target
 */
 pub fn divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+    if s2.is_zero() {
+        panic!("divide by zero");
+    }
+
     if s2.get_keta() > 1 {
         divide_w_inverse(s1, s2, target);
     } else {
@@ -328,14 +332,10 @@ pub fn divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     }
 }
 
-pub fn one_divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+fn one_divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     let mut t: i64;
     let mut h: i64;
     target.clear();
-
-    if s2.is_zero() {
-        panic!("divided by zero");
-    }
 
     h = 0;
 
@@ -346,4 +346,25 @@ pub fn one_divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     }
 }
 
-pub fn divide_w_inverse(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {}
+fn divide_w_inverse(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+    let mut inversed: NUMBER = NUMBER::new();
+    let mut t1: NUMBER = NUMBER::new();
+    let mut t2: NUMBER = NUMBER::new();
+    let num_comped: i64;
+
+    target.clear();
+    let n: usize = s1.get_keta() + 1;
+
+    inverse(s2, &mut inversed, n);
+    multiple(s1, &inversed, &mut t1);
+    t1.shift_right(n);
+
+    increment(&t1, &mut t2);
+    multiple(&s2, &t2, &mut t1);
+    num_comped = num_comp(&t1, s1);
+    if num_comped == 1 {
+        decrement(&t2, target);
+    } else {
+        copy_number(&t2, target);
+    }
+}
