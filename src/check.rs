@@ -1,6 +1,7 @@
 use std::time::Instant;
 
-use crate::mulprec;
+use crate::fft::{self, multiply_using_fft};
+use crate::mulprec::{self, KETA, NUMBER};
 
 pub fn check() {
     print!("<<<<<< check >>>>>>\n");
@@ -19,6 +20,7 @@ pub fn check() {
     shift_left();
     shift_right();
     inverse();
+    fft();
 }
 
 pub fn set_int() {
@@ -189,25 +191,6 @@ pub fn decrement() {
     print!("\n");
 }
 
-pub fn multiple() {
-    print!("\nmultiple\n");
-    let mut a = mulprec::NUMBER::new();
-    let mut b = mulprec::NUMBER::new();
-    let mut c = mulprec::NUMBER::new();
-    a.set_int(123456789123456789);
-    b.set_int(123456789123456789);
-    print!("a: ");
-    a.display();
-    print!("\n");
-    print!("b: ");
-    b.display();
-    print!("\n");
-    mulprec::multiple(&a, &b, &mut c);
-    print!("c: ");
-    c.display();
-    print!("\n");
-}
-
 pub fn one_divide() {
     print!("\none_divide\n");
     let mut a = mulprec::NUMBER::new();
@@ -222,6 +205,25 @@ pub fn one_divide() {
     b.display();
     print!("\n");
     mulprec::divide(&a, &b, &mut c);
+    print!("c: ");
+    c.display();
+    print!("\n");
+}
+
+pub fn multiple() {
+    print!("\nmultiple\n");
+    let mut a = mulprec::NUMBER::new();
+    let mut b = mulprec::NUMBER::new();
+    let mut c = mulprec::NUMBER::new();
+    a.set_int(12345678);
+    b.set_int(12345678);
+    print!("a: ");
+    a.display();
+    print!("\n");
+    print!("b: ");
+    b.display();
+    print!("\n");
+    mulprec::multiple(&a, &b, &mut c);
     print!("c: ");
     c.display();
     print!("\n");
@@ -262,8 +264,50 @@ pub fn inverse() {
     print!("a: ");
     a.display();
     print!("\n");
-    mulprec::inverse(&a, &mut b, 10);
+    mulprec::inverse(&a, &mut b, 50);
     print!("b: ");
     b.display();
     print!("\n");
 }
+
+
+pub fn fft() {
+    pub fn main() {
+    let mut a = NUMBER::new();
+    a.set_int(123);
+    
+    let mut b = NUMBER::new();
+    b.set_int(456);
+
+
+    let mut result = NUMBER::new();
+    
+    multiply_using_fft(&a, &b, &mut result);
+    
+    // Display the result
+    let mut result_str = String::new();
+    let mut started = false;
+    
+    // Process digits from most significant to least
+    for i in (0..KETA).rev() {
+        if result.n[i] != 0 || started {
+            result_str.push_str(&result.n[i].to_string());
+            started = true;
+        }
+    }
+    
+    if !started {
+        result_str = "0".to_string();
+    }
+    
+    if result.sign < 0 {
+        result_str = format!("-{}", result_str);
+    }
+    
+    println!("Result: {}", result_str);
+    println!("Direct multiplication: 123 * 456 = 56088");
+}
+}
+
+
+
