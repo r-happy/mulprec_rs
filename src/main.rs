@@ -5,19 +5,19 @@ mod mulprec;
 mod pi;
 
 fn main() -> std::io::Result<()> {
-   let mut pi = mulprec::NUMBER::new();
+   let mut pi = mulprec::Number::new();
 
    let start = std::time::Instant::now();
    get_pi(&mut pi);
    let end = std::time::Instant::now();
 
-   print!("pi\n");
+   println!("pi");
    pi.display();
-   print!("\n");
-   print!("time: {}s\n", (end - start).as_secs_f64());
+   println!();
+   println!("time: {}s", (end - start).as_secs_f64());
 
    let matches = check_pi(&pi);
-   print!("match: {}\n", matches);
+   println!("match: {}", matches);
    
     // check::check();
 

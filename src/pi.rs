@@ -1,21 +1,21 @@
 use std::io::{self, Write};
 
-use crate::mulprec::{self, KETA, NUMBER, SHIFT, add, copy_number, divide, multiple, num_comp};
+use crate::mulprec::{self, KETA, Number, SHIFT, add, copy_number, divide, multiple, num_comp};
 
 /*
     target <- pi
     ニュートン無平方根法
 */
-pub fn get_pi(target: &mut mulprec::NUMBER) {
-    let mut denominator1 = NUMBER::new();
-    let mut denominator2 = NUMBER::new();
-    let mut numerator = NUMBER::new();
-    let mut pi = NUMBER::new();
-    let mut t_pi = NUMBER::new();
-    let zero = NUMBER::new();
-    let mut twoi = NUMBER::new();
-    let mut t1 = NUMBER::new();
-    let mut t2 = NUMBER::new();
+pub fn get_pi(target: &mut mulprec::Number) {
+    let mut denominator1 = Number::new();
+    let mut denominator2 = Number::new();
+    let mut numerator = Number::new();
+    let mut pi = Number::new();
+    let mut t_pi = Number::new();
+    let zero = Number::new();
+    let mut twoi = Number::new();
+    let mut t1 = Number::new();
+    let mut t2 = Number::new();
     let mut i: usize = 0;
 
     t_pi.n[SHIFT] = 1;
@@ -53,10 +53,10 @@ pub fn get_pi(target: &mut mulprec::NUMBER) {
 
     t1.set_int(3);
     multiple(&pi, &t1, target);
-    print!("\n");
+    println!();
 }
 
-pub fn check_pi(a: &NUMBER) -> i32 {
+pub fn check_pi(a: &Number) -> i32 {
     let mut file = vec![0; KETA * 9];
 
     let file_result = std::fs::File::open("pi.txt");
