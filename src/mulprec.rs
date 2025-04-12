@@ -1,6 +1,3 @@
-use rayon::prelude::*;
-use std::sync::Mutex;
-
 // const ---------------------
 pub const BASE: i64 = 1000000000;
 /* 1000
@@ -22,14 +19,14 @@ pub const SHIFT: usize = 115111;
  */
 // const  ---------------------
 
-pub struct NUMBER {
+pub struct Number {
     pub n: [i64; KETA],
     pub sign: i64,
 }
 
-impl NUMBER {
+impl Number {
     pub fn new() -> Self {
-        let mut number = NUMBER {
+        let mut number = Number {
             n: [0; KETA],
             sign: 0,
         };
@@ -121,7 +118,7 @@ impl NUMBER {
                 break;
             }
         }
-        return r_v;
+        r_v
     }
 
     /*
@@ -160,7 +157,7 @@ impl NUMBER {
 /*
     target = source
 */
-pub fn copy_number(source: &NUMBER, target: &mut NUMBER) {
+pub fn copy_number(source: &Number, target: &mut Number) {
     target.sign = source.sign;
     target.n = source.n;
 }
@@ -170,7 +167,7 @@ pub fn copy_number(source: &NUMBER, target: &mut NUMBER) {
    source1 < source2: -1
    source1 = source2: 0
 */
-pub fn num_comp(s1: &NUMBER, s2: &NUMBER) -> i64 {
+pub fn num_comp(s1: &Number, s2: &Number) -> i64 {
     if s1.sign > s2.sign {
         return 1;
     }
@@ -191,13 +188,13 @@ pub fn num_comp(s1: &NUMBER, s2: &NUMBER) -> i64 {
         }
     }
 
-    return r_v;
+    r_v
 }
 
 /*
     s1 + s2 = target
 */
-pub fn add(s1: &NUMBER, st2: &NUMBER, target: &mut NUMBER) {
+pub fn add(s1: &Number, st2: &Number, target: &mut Number) {
     let mut d: i64;
     let mut e: i64 = 0;
 
@@ -216,7 +213,7 @@ pub fn add(s1: &NUMBER, st2: &NUMBER, target: &mut NUMBER) {
 /*
     s1 - s2 = target
 */
-pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+pub fn sub(s1: &Number, s2: &Number, target: &mut Number) {
     let mut h: i64 = 0;
     let mut s1i: i64;
     let mut s2i: i64;
@@ -245,8 +242,8 @@ pub fn sub(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
 /*
     s1 + 1 = target
 */
-pub fn increment(s1: &NUMBER, target: &mut NUMBER) {
-    let mut one: NUMBER = NUMBER::new();
+pub fn increment(s1: &Number, target: &mut Number) {
+    let mut one: Number = Number::new();
     one.set_int(1);
     add(s1, &one, target);
 }
@@ -254,8 +251,8 @@ pub fn increment(s1: &NUMBER, target: &mut NUMBER) {
 /*
     s1 - 1 = target
 */
-pub fn decrement(s1: &NUMBER, target: &mut NUMBER) {
-    let mut one: NUMBER = NUMBER::new();
+pub fn decrement(s1: &Number, target: &mut Number) {
+    let mut one: Number = Number::new();
     one.set_int(1);
     sub(s1, &one, target);
 }
@@ -263,11 +260,11 @@ pub fn decrement(s1: &NUMBER, target: &mut NUMBER) {
 /*
     s1 * s2 = target
 */
-pub fn multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+pub fn multiple(s1: &Number, s2: &Number, target: &mut Number) {
     simple_multiple(s1, s2, target);
 }
 
-pub fn simple_multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+pub fn simple_multiple(s1: &Number, s2: &Number, target: &mut Number) {
     target.clear();
     let s1_keta = s1.get_keta();
     let s2_keta = s2.get_keta();
@@ -299,13 +296,13 @@ pub fn simple_multiple(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
 /*
     inverse(s1) = target
 */
-pub fn inverse(s: &NUMBER, target: &mut NUMBER, n: usize) {
-    let mut x = NUMBER::new();
-    let mut y = NUMBER::new();
-    let mut h = NUMBER::new();
-    let mut one = NUMBER::new();
-    let mut t1 = NUMBER::new();
-    let mut t2 = NUMBER::new();
+pub fn inverse(s: &Number, target: &mut Number, n: usize) {
+    let mut x = Number::new();
+    let mut y = Number::new();
+    let mut h = Number::new();
+    let mut one = Number::new();
+    let mut t1 = Number::new();
+    let mut t2 = Number::new();
     let keta: usize = s.get_keta();
 
     one.set_int(1);
@@ -338,7 +335,7 @@ pub fn inverse(s: &NUMBER, target: &mut NUMBER, n: usize) {
 /*
     s1 / s2 = target
 */
-pub fn divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+pub fn divide(s1: &Number, s2: &Number, target: &mut Number) {
     if s2.is_zero() {
         panic!("divide by zero");
     }
@@ -350,7 +347,7 @@ pub fn divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     }
 }
 
-fn one_divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
+fn one_divide(s1: &Number, s2: &Number, target: &mut Number) {
     let mut t: i64;
     let mut h: i64;
     target.clear();
@@ -364,11 +361,10 @@ fn one_divide(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     }
 }
 
-fn divide_w_inverse(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
-    let mut inversed: NUMBER = NUMBER::new();
-    let mut t1: NUMBER = NUMBER::new();
-    let mut t2: NUMBER = NUMBER::new();
-    let num_comped: i64;
+fn divide_w_inverse(s1: &Number, s2: &Number, target: &mut Number) {
+    let mut inversed: Number = Number::new();
+    let mut t1: Number = Number::new();
+    let mut t2: Number = Number::new();
 
     target.clear();
     let n: usize = s1.get_keta() + 1;
@@ -378,9 +374,9 @@ fn divide_w_inverse(s1: &NUMBER, s2: &NUMBER, target: &mut NUMBER) {
     t1.shift_right(n);
 
     increment(&t1, &mut t2);
-    multiple(&s2, &t2, &mut t1);
-    num_comped = num_comp(&t1, s1);
-    if num_comped == 1 {
+    multiple(s2, &t2, &mut t1);
+    
+    if num_comp(&t1, s1) == 1 {
         decrement(&t2, target);
     } else {
         copy_number(&t2, target);
